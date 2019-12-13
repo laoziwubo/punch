@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.9-dmr" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Laoziwubo.IDAL\Laoziwubo.IDAL.csproj" />
+    <ProjectReference Include="..\Laoziwubo.Model\Laoziwubo.Model.csproj" />
+  </ItemGroup>
+
+</Project>

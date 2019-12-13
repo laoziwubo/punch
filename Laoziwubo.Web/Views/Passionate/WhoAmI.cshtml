@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "是牛还是球";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f6f6f6;
+    }
+
+    .div-container {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+    }
+
+    .div-icon {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        overflow: hidden;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+        .div-icon:hover {
+            box-shadow: 20px 40px 40px rgba(26,26,26,.5);
+        }
+
+    .icon-niuer {
+        left: 38%;
+    }
+
+    .icon-ball {
+        left: 62%;
+    }
+
+    .div-icon-mid {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+    }
+
+        .div-icon-mid img {
+            height: 350px;
+            width: 150px;
+        }
+
+    .div-txt {
+        width: 20vw;
+        font-size: 30px;
+        padding: .5em 2em;
+        border-radius: 5px;
+        margin: 15vh auto;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 30px 30px rgba(26,26,26,.2);
+        color: #A1A7B2;
+    }
+</style>
+<div class="div-txt">
+    是牛还是球？
+</div>
+<div class="div-icon icon-niuer">
+    <a class="a-link" data="niuer">
+        <img src="~/images/passionate/niu.png" />
+    </a>
+</div>
+<div class="div-icon-mid">
+    <img src="~/images/passionate/line.png" />
+</div>
+<div class="div-icon icon-ball">
+    <a class="a-link" data="ball">
+        <img src="~/images/passionate/ball.png" />
+    </a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+
+            $("#a-nav").hide();
+
+            $(".a-link").click(function () {
+                var who = $(this).attr("data");
+                window.location.href = "/passionate/" + who;
+            });
+        })
+    </script>
+}
+

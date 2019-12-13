@@ -1,0 +1,381 @@
+﻿@model List<Laoziwubo.Model.Content.StickerM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Styles {
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("/uploadifive/uploadifive.css")">
+    <link href="/css/component.css" rel="stylesheet" />
+    <link href="/css/gallery.css" rel="stylesheet" />
+    <style>
+        .upload {
+            margin-top: 10px;
+            width: 250px;
+            height: 45px;
+            display: inline-block;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #FF6600;
+        }
+
+            .upload:hover {
+                background-color: #FF9933;
+            }
+
+        .icon-select {
+            margin-top: 12px;
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            vertical-align: top;
+            background: url('/images/select-img-white.png') right 0 no-repeat;
+        }
+
+        .icon-upload {
+            margin-top: 12px;
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            vertical-align: top;
+            background: url('/images/upload-white.png') right 0 no-repeat;
+        }
+
+        .icon-tag {
+            margin-top: 12px;
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            vertical-align: top;
+            background: url('/images/add-tag-white.png') right 0 no-repeat;
+        }
+
+        .span-txt {
+            padding: 0 3px;
+            display: inline-block;
+            height: 47px;
+            line-height: 47px;
+            color: white;
+            font-size: 18px;
+        }
+
+        #background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: fill;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            overflow-y: hidden;
+            color: #000000;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .section {
+            position: relative;
+            background-color: #1abc9c;
+        }
+
+        .second {
+            background-color: #f06060;
+            z-index: 1;
+        }
+
+        .third {
+            background-image: url('/images/doge.jpg');
+            background-size: 800px;
+            z-index: 1;
+        }
+
+        #radioWrap {
+            width: 20px;
+            height: 90px;
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            margin-top: -45px;
+            z-index: 1;
+        }
+
+        #radio {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+            #radio li {
+                width: 20px;
+                height: 20px;
+                background-color: rgba(255,255,255, 0.5);
+                text-indent: -10000px;
+                border-radius: 50%;
+                margin-top: 12px;
+                cursor: pointer;
+            }
+
+                #radio li:first-child {
+                    margin-top: 0;
+                }
+
+        #radioOn {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        #content-description {
+            z-index: 2;
+            position: relative;
+            display: inline-block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        #div-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            opacity: 0.5;
+        }
+
+        .div-gain {
+            position: relative;
+            border: 10px solid #DCDCDC;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .img-gain {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-uplode {
+            width: 100%;
+            height: 100%;
+        }
+
+        .div-upload {
+            width: 70%;
+            height: 70%;
+            text-align: center;
+            position: relative;
+            margin: 0 auto;
+            top: 15vh;
+            background-color: rgba(50,50,50,0.6);
+            border-radius: 8px;
+        }
+
+        .tag {
+            overflow: hidden;
+        }
+    </style>
+}
+
+<div id="frame">
+    <div id="container">
+        <div class="section">
+            <video id="background-video" loop muted></video>
+            <div id="div-overlay"></div>
+            <section id="content-description">
+                <div>
+                    <div class="dib vt w8v">
+                        <img class="w100p" src="/images/blink-dagger.jpg" alt="logo" />
+                    </div>
+                    <div class="dib vt ml10">
+                        <p class="f35 white tl mb1v">塑料车友玩表情</p>
+                        <p class="op5 white f20 tl mb1v">生活不易，找点乐子</p>
+                        <p class="f20 white op5 tl">@@laoziwubo</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section second">
+            <section id="photostack" style="top: calc((100% - 580px) / 2)" class="photostack">
+                <div>
+                    @foreach (var s in Model)
+                    {
+                    <figure>
+                        <a href="javascript:void(0);" class="photostack-img"><img class="h100p w100p" src="@s.Path" alt="@s.Tag" /></a>
+                        <figcaption>
+                            <h2 class="photostack-title">Speed Racer</h2>
+                            <div class="photostack-back">
+                                <p>Here he comes Here comes Speed Racer. He's a demon on wheels. Wouldn't you like to get away? Sometimes you want to go where everybody knows <span>the</span> your name. And they're always glad you came! </p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    }
+                </div>
+            </section>
+        </div>
+        <div name="section-upload" class="section third">
+            <section class="section-uplode">
+                <div class="div-upload">
+                    <div class="w100p pa t50p tran50Y">
+                        <div class="div-gain w167v h35v">
+                            <img id="img-gain-1" class="img-gain" src="/images/gain-1.jpg" />
+                        </div>
+                        <div class="div-gain w20v h40v ml5p mr5p">
+                            <img id="img-upload" class="img-gain" src="/images/gain-2.jpg" />
+                        </div>
+                        <div class="div-gain w167v h35v">
+                            <img id="img-gain-3" class="img-gain" src="/images/gain-3.jpg" />
+                        </div>
+                        <div class="tc h10v pr t4v">
+                            <input type="file" name="upload" id="file-upload" />
+                            @*<a href="javascript:$('#file-upload').uploadifive('upload')" class="do upload hide">
+                                    <i class="icon-upload"></i>
+                                    <span class="span-txt">选好了</span>
+                                </a>*@
+                            <a asp-controller="Sticker" asp-action="Tag" class="tag upload hide">
+                                <i class="icon-tag"></i>
+                                <span class="span-txt">去给我的图贴标签</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div id="radioWrap">
+    <ul id="radio">
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+    </ul>
+    <span id="radioOn"></span>
+</div>
+
+@section Scripts {
+    <script src="js/onepage.js"></script>
+    <script src="~/layui/layui.js"></script>
+    <script src="~/js/bideo.js"></script>
+    <script type="text/javascript" src="@Url.Content("/uploadifive/jquery.uploadifive.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("body").hide();
+            Pace.once("done", function() {
+                $("body").fadeIn(300);
+            });
+
+            startOnePage({
+                frame: "#frame",
+                container: "#container",
+                sections: ".section",
+                radio: "#radio",
+                radioOn: "#radioOn",
+                speed: 500,
+                easing: "swing"
+            });
+
+            layui.use('layer',
+                function() {
+                    var layer = layui.layer;
+                });
+
+            var res = {
+                info: "",
+                path: ""
+            };
+
+            $("#file-upload").uploadifive({
+                width: 250,
+                height: 45,
+                uploadScript: '@Url.Content("~/Sticker/Upload")',
+                auto: true,
+                method: 'post',
+                fileObjName: "files",
+                multi: false,
+                buttonClass: "upload",
+                buttonText: '<i class="icon-select"></i><span id="span-txt" class="span-txt">看到就给你咯</span>',
+                fileSizeLimit: '10MB',
+                fileType: 'image/*',
+                queueSizeLimit: 5,
+                removeCompleted: true,
+                removeTimeout: 1,
+                onFallback: function() {
+                    layer.alert('哎呀，你的浏览器实在是太老了，请更新版本或更换其他支持Html5的浏览器！', { icon: 0 });
+                },
+                onError: function(errorType) {
+                    layer.alert("上传时出错，错误信息：" + errorType, { icon: 0 });
+                },
+                onInit: function () {
+                    $("div#uploadifive-file-upload-queue").hide();
+                },
+                onQueueComplete: function (uploads) {
+                    layer.msg(res.info,
+                        {
+                            time: 5000,
+                            anim: 6,
+                            offset: '8vh'
+                        });
+                },
+                onUploadComplete: function(file, data) {
+                    var r = JSON.parse(data);
+                    if (r.flag) {
+                        var m = r.message.split("|");
+                        res.info = "<p class='mt-1v mb-1v'><img class='w4v' src='/images/gain-6.jpg' /><span class='green ml1v'>" +
+                            m[0] +
+                            "</span></p>";
+                        res.path = m[1];
+                        $("span#span-txt").text("我还要传");
+                        $("#img-upload").attr("src", res.path);
+                        $("#img-upload").css("border-color", "#FF6600");
+                        $("#img-gain-1").attr("src", "/images/gain-4.jpg");
+                        $("#img-gain-3").attr("src", "/images/gain-5.jpg");
+                        $("a.tag").removeClass("hide");
+                    } else {
+                        res.info = "<p class='mt-1v mb-1v'><img class='w4v' src='/images/gain-6.jpg' /><span class='red ml1v'>" +
+                            r.message +
+                            "</span></p>";
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        (function () {
+            var bv = new Bideo();
+            bv.init({
+                videoEl: document.querySelector('#background-video'),
+                container: document.querySelector('body'),
+                resize: true,
+                isMobile: window.matchMedia('(max-width: 768px)').matches,
+                src: [
+                    {
+                        src: '/images/night.mp4',
+                        type: 'video/mp4'
+                    }
+                ],
+                onLoad: function () {
+                    //alert("OK");
+                }
+            });
+        }());
+    </script>
+    <script src="js/classie.js"></script>
+    <script src="js/photostack.js"></script>
+    <script>
+        new Photostack(document.getElementById('photostack'), {
+            callback: function (item) {
+                //console.log(item)
+            }
+        });
+    </script>
+}

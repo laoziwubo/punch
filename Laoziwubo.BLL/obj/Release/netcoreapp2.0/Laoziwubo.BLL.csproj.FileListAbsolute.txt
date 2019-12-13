@@ -1,0 +1,16 @@
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.BLL.deps.json
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.BLL.dll
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.BLL.pdb
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.IBLL.dll
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.IDAL.dll
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.Model.dll
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.IBLL.pdb
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.IDAL.pdb
+E:\Core\Laoziwubo\Laoziwubo.BLL\bin\Release\netcoreapp2.0\Laoziwubo.Model.pdb
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.csproj.CoreCompileInputs.cache
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.AssemblyInfoInputs.cache
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.AssemblyInfo.cs
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.dll
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.pdb
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.csprojAssemblyReference.cache
+E:\Core\Laoziwubo\Laoziwubo.BLL\obj\Release\netcoreapp2.0\Laoziwubo.BLL.csproj.CopyComplete

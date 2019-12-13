@@ -1,0 +1,576 @@
+﻿@model List<Laoziwubo.Model.Content.PunchM>
+@{
+    ViewData["Title"] = "牛儿打卡";
+    var today = Model.Exists(e => e.Date.ToString("d") == DateTime.Now.ToString("d")) ? Model.FirstOrDefault(e => e.Date.ToString("d") == DateTime.Now.ToString("d")) : null;
+    var id = today?.Id ?? 0;
+    var startDay = Model.Exists(e => e.Date.ToString("d") == "2018/4/19") ? Model.FirstOrDefault(e => e.Date.ToString("d") == "2018/4/19") : null;
+}
+
+@section Styles{
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #f6f6f6;
+        }
+
+        section {
+            width: 100%;
+            padding: 2vh 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .div-info {
+            margin: 0 auto;
+            width: 50vw;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background-color: #fff;
+            padding: 2em 10vw;
+            box-shadow: 0 8px 8px rgba(26,26,26,.1);
+        }
+
+        .div-more {
+            margin: 0 auto;
+            width: 40vw;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            text-align: center;
+            background-color: #fff;
+            padding: .5em;
+        }
+
+            .div-more:hover {
+                border: 1px solid #3cb371;
+                color: #3cb371;
+                cursor: pointer;
+            }
+
+        .div-img {
+            display: inline-block;
+            border: 1px solid transparent;
+            width: 8vw;
+            padding: 1vw;
+            margin: 2vw;
+            cursor: pointer;
+            vertical-align: top;
+        }
+
+        .btn-ok {
+            border: 1px solid #e6e6e6;
+            height: 36px;
+            vertical-align: top;
+            width: 5em;
+            line-height: 36px;
+            display: inline-block;
+            text-align: center;
+        }
+
+            .btn-ok:hover {
+                border: 1px solid #3cb371;
+                color: #3cb371;
+                cursor: pointer;
+                border-color: #3cb371;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(60, 179, 113, .6);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(60, 179, 113, .6);
+            }
+
+            .btn-ok img {
+                width: 1.5em;
+            }
+
+        .icon {
+            width: 1.2em;
+            margin-right: .1em;
+            vertical-align: bottom;
+        }
+
+        .icon-mood {
+            width: 1.5em;
+            margin-right: .5em;
+            vertical-align: top;
+        }
+
+        .div-record {
+            font-size: 18px;
+            padding: 0 5vw;
+        }
+
+        .span-txt {
+            display: inline-block;
+            width: 40vw;
+            vertical-align: top;
+        }
+
+        .btn-re {
+            font-size: 14px;
+            border: 1px solid #e6e6e6;
+            background-color: #fff;
+            padding: .3em 1em;
+        }
+
+            .btn-re:hover {
+                border: 1px solid #3cb371;
+                color: #3cb371;
+                cursor: pointer;
+            }
+
+        #div-nav {
+            width: 70%;
+            height: 15vh;
+            margin: 10vh auto 5vh auto;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 0 18px 10px rgba(26,26,26,.2);
+        }
+
+
+        #div-avatar {
+            width: 8vw;
+            height: 8vw;
+            position: absolute;
+            left: -10vw;
+            top: -3vw;
+            display: inline-block;
+            overflow: hidden;
+            border: 2px solid #ffc0cb;
+        }
+
+        #div-profile {
+            width: 60%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .mood-input {
+            border: 1px solid #e6e6e6;
+            color: #A1A7B2;
+            padding-left: 10px;
+            display: inline-block;
+            border-right: none;
+            flex: 1;
+        }
+
+        .icon-tip {
+            width: 1.3em;
+            padding-right: .3em;
+            vertical-align: top;
+        }
+
+        .div-mood {
+            display: flex;
+            padding: 0 5%;
+        }
+
+        .mood-input:focus {
+            border-right: 1px solid;
+            border-color: #3cb371;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(60, 179, 113, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(60, 179, 113, .6);
+        }
+    </style>
+}
+
+<div id="div-nav">
+    <div id="div-profile">
+        <div id="div-avatar">
+            <img class="w100p" src="~/images/punch/niuer-2.jpg" />
+        </div>
+        <div class="dib">
+            <div class="p5">
+                <span class="f30">每天记录一点点~</span>
+            </div>
+            <div class="p5">
+                <span class="f20 gray-ly">
+                    <img class="icon" src="~/images/punch/female.png" />牛儿
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+@if (today != null)
+{
+    <section id="sec-today">
+        <div class="div-info">
+            <span class="f24">
+                @today.Date.ToString("yyyy年M月d日")
+                <span class="fr"><input type="button" value="重新打卡" class="btn-re" /></span>
+            </span>
+            <hr />
+            <div class="div-record">
+                <div class="p5 f14 tr gray-ly">
+                    打卡时间：<span>@today.AddTime</span>
+                </div>
+                <div class="p5">
+                    学习：
+                    @if (today.Item1 == 1)
+                    {
+                        <img class="icon" src="~/images/punch/yes.png" />
+                    }
+                    else
+                    {
+                        <img class="icon" src="~/images/punch/no.png" />
+                    }
+                </div>
+                <div class="p5">
+                    运动：
+                    @if (today.Item2 == 1)
+                    {
+                        <img class="icon" src="~/images/punch/yes.png" />
+                    }
+                    else
+                    {
+                        <img class="icon" src="~/images/punch/no.png" />
+                    }
+                </div>
+                <div class="p5">
+                    读书：
+                    @if (today.Item3 == 1)
+                    {
+                        <img class="icon" src="~/images/punch/yes.png" />
+                    }
+                    else
+                    {
+                        <img class="icon" src="~/images/punch/no.png" />
+                    }
+                </div>
+                <div class="p5 mt2v">
+                    <span class="span-txt"><img class="icon-mood" src="~/images/punch/mood.png" />@today.Mood</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec-punch" style="display: none;">
+        <div class="div-info">
+            <span class="f24">
+                @today.Date.ToString("yyyy年M月d日")
+            </span>
+            <hr />
+            <div class="tc">
+                <div class="div-img" data="study">
+                    <img id="study" data="@(today.Item1 == 1 ? 1 : 0)" title="学习" src="~/images/punch/study-@(today.Item1 == 1 ? 1 : 0).png" />
+                </div>
+                <div class="div-img" data="sports">
+                    <img id="sports" data="@(today.Item2 == 1 ? 1 : 0)" title="运动" src="~/images/punch/sports-@(today.Item2 == 1 ? 1 : 0).png" />
+                </div>
+                <div class="div-img" data="read">
+                    <img id="read" data="@(today.Item3 == 1 ? 1 : 0)" title="读书" src="~/images/punch/read-@(today.Item3 == 1 ? 1 : 0).png" />
+                </div>
+            </div>
+            <div class="div-mood">
+                <input type="text" id="txt-mood" placeholder="写点今天的心情" value="@today.Mood" class="mood-input">
+                <a class="btn-ok"><img src="~/images/punch/ok.png" /></a>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section>
+        <div class="div-info">
+            <span class="f24">@DateTime.Now.ToString("yyyy年M月d日")</span>
+            <hr />
+            <div class="tc">
+                <div class="div-img" data="study">
+                    <img id="study" data="0" title="学习" src="~/images/punch/study-0.png" />
+                </div>
+                <div class="div-img" data="sports">
+                    <img id="sports" data="0" title="运动" src="~/images/punch/sports-0.png" />
+                </div>
+                <div class="div-img" data="read">
+                    <img id="read" data="0" title="读书" src="~/images/punch/read-0.png" />
+                </div>
+            </div>
+            <div class="div-mood">
+                <input type="text" id="txt-mood" placeholder="写点今天的心情" class="mood-input">
+                <a class="btn-ok"><img src="~/images/punch/ok.png" /></a>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model != null && Model.Count != 0)
+{
+    foreach (var p in Model.Where(e => e.Date.ToString("d") != DateTime.Now.ToString("d")).OrderByDescending(e => e.Date))
+    {
+        if (p.Id != 0)
+        {
+            <section>
+                <div class="div-info">
+                    <span class="f24">@p.Date.ToString("yyyy年M月d日")</span>
+                    <hr />
+                    <div class="div-record">
+                        <div class="p5 f14 tr gray-ly">
+                            打卡时间：<span>@p.AddTime</span>
+                        </div>
+                        <div class="p5">
+                            学习：
+                            @if (p.Item1 == 1)
+                            {
+                                <img class="icon" src="~/images/punch/yes.png" />
+                            }
+                            else
+                            {
+                                <img class="icon" src="~/images/punch/no.png" />
+                            }
+                        </div>
+                        <div class="p5">
+                            运动：
+                            @if (p.Item2 == 1)
+                            {
+                                <img class="icon" src="~/images/punch/yes.png" />
+                            }
+                            else
+                            {
+                                <img class="icon" src="~/images/punch/no.png" />
+                            }
+                        </div>
+                        <div class="p5">
+                            读书：
+                            @if (p.Item3 == 1)
+                            {
+                                <img class="icon" src="~/images/punch/yes.png" />
+                            }
+                            else
+                            {
+                                <img class="icon" src="~/images/punch/no.png" />
+                            }
+                        </div>
+                        <div class="p5 mt2v">
+                            <span class="span-txt"><img class="icon-mood" src="~/images/punch/mood.png" />@p.Mood</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+        else
+        {
+            <section>
+                <div class="div-info">
+                    <span class="f24">@p.Date.ToString("yyyy年M月d日")</span>
+                    <hr />
+                    <div class="tc f24 gray-ly p30">
+                        <img class="icon-tip" src="~/images/punch/false.png" />
+                        懒牛今天没打卡，真懒
+                    </div>
+                </div>
+            </section>
+        }
+    }
+
+    if (startDay != null)
+    {
+        <section>
+            <div class="div-info">
+                <div class="tc f30 gray-ly">
+                    <img class="icon-tip" src="~/images/punch/none.png" />
+                    没有更多了
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section id="sec-more">
+            <div class="div-more">
+                加载更多
+            </div>
+        </section>
+    }
+}
+else
+{
+    <section>
+        <div class="div-info">
+            <div class="tc f30 gray-ly">
+                <img class="icon-tip" src="~/images/punch/none.png" />
+                没有更多了
+            </div>
+        </div>
+    </section>
+}
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            layui.use('layer',
+                function() {
+                    var layer = layui.layer;
+                });
+            $("#a-nav").hide();
+
+            var p = 1;
+
+            $(".div-img").click(function() {
+                var type = $(this).attr("data");
+                var src = $("#" + type).attr("src");
+                var flag = $("#" + type).attr("data");
+                if (src.indexOf("-0") >= 0) {
+                    src = src.replace(type + "-0", type + "-1");
+                    flag = "1";
+                } else {
+                    src = src.replace(type + "-1", type + "-0");
+                    flag = "0";
+                }
+                $("#" + type).attr("src", src);
+                $("#" + type).attr("data", flag);
+            });
+
+            $(".div-more").click(function() {
+                p++;
+                var url = "@Url.Content("~/Punch/GetList")";
+                $.post(url,
+                    { p: p },
+                    function(data) {
+                        var r = JSON.parse(data);
+                        if (r.Flag) {
+                            layer.msg(r.Message,
+                                {
+                                    time: 1500,
+                                    icon: 1,
+                                    offset: '30vh'
+                                },
+                                function() {
+                                    for (var i = 0; i < r.Data.length; i++) {
+                                        var sec = "";
+                                        var str = new Date(r.Data[i].Date);
+                                        var date = str.getFullYear() +
+                                            "年" +
+                                            (str.getMonth() + 1) +
+                                            "月" +
+                                            str.getDate() +
+                                            "日";
+                                        str = new Date(r.Data[i].AddTime);
+                                        var addtime = str.getFullYear() +
+                                            "/" +
+                                            (str.getMonth() + 1) +
+                                            "/" +
+                                            str.getDate() +
+                                            "/" +
+                                            " " +
+                                            str.getHours() +
+                                            ":" +
+                                            str.getMinutes() +
+                                            ":" +
+                                            str.getSeconds();
+
+                                        if (r.Data[i].Id != 0) {
+                                            sec =
+                                                "<section><div class='div-info'><span class='f24'>" +
+                                                date +
+                                                "</span><hr /><div class='div-record'><div class='p5 f14 tr gray-ly'>打卡时间：<span>" +
+                                                addtime +
+                                                "</span></div><div class='p5'>学习：";
+                                            if (r.Data[i].Item1 == 1) {
+                                                sec += "<img class='icon' src= '../images/punch/yes.png' />";
+                                            } else {
+                                                sec += "<img class='icon' src= '../images/punch/no.png' />";
+                                            }
+                                            sec +=
+                                                "</div > <div class='p5'>运动：";
+                                            if (r.Data[i].Item2 == 1) {
+                                                sec += "<img class='icon' src= '../images/punch/yes.png' />";
+                                            } else {
+                                                sec += "<img class='icon' src= '../images/punch/no.png' />";
+                                            }
+                                            sec +=
+                                                "</div> <div class='p5'>读书：";
+                                            if (r.Data[i].Item3 == 1) {
+                                                sec += "<img class='icon' src= '../images/punch/yes.png' />";
+                                            } else {
+                                                sec += "<img class='icon' src= '../images/punch/no.png' />";
+                                            }
+                                            sec +=
+                                                "</div> <div class='p5 mt2v'><span class='span-txt'><img class='icon-mood' src='../images/punch/mood.png' />" +
+                                                r.Data[i].Mood +
+                                                "</span></div></div ></div ></section > ";
+                                        } else {
+                                            sec =
+                                                "<section><div class='div-info'><span class='f24'>" +
+                                                date +
+                                                "</span><hr /><div class='tc f24 gray-ly p30'><img class='icon-tip' src='../images/punch/false.png' />懒牛今天没打卡，真懒</div></div></section>";
+                                        }
+                                        $("#sec-more").before(sec);
+                                    }
+                                });
+                        } else {
+                            layer.msg(r.Message,
+                                {
+                                    time: 1500,
+                                    icon: 0,
+                                    offset: '30vh'
+                                },
+                                function() {
+                                    $(".div-more").hide();
+                                    var sec =
+                                        "<section><div class='div-info'><div class='tc f30 gray-ly'><img class='icon-tip' src='../images/punch/none.png' />没有更多了</div></div></section>";
+                                    $("#sec-more").before(sec);
+                                });
+                        }
+                    });
+            });
+
+            $(".btn-ok").click(function() {
+                var txt = $("#txt-mood").val();
+                if (txt.length > 500) {
+                    layer.msg("心情字数有点多啦，不能超过500字哦~",
+                        {
+                            time: 3000,
+                            icon: 0,
+                            offset: '30vh'
+                        });
+                    return false;
+                }
+                var url = "@Url.Content("~/Punch/Add")";
+                $.post(url,
+                    {
+                        Id: "@id",
+                        Item1: $("#study").attr("data"),
+                        Item2: $("#sports").attr("data"),
+                        Item3: $("#read").attr("data"),
+                        Mood: txt
+                    },
+                    function(data) {
+                        var r = JSON.parse(data);
+                        if (r.Flag) {
+                            layer.msg(r.Message,
+                                {
+                                    time: 2000,
+                                    icon: 1,
+                                    offset: '30vh'
+                                },
+                                function() {
+                                    window.location.reload();
+                                });
+                        } else {
+                            layer.msg(r.Message,
+                                {
+                                    time: 2000,
+                                    icon: 0,
+                                    offset: '30vh'
+                                },
+                                function() {
+                                    $(".div-more").hide();
+
+                                });
+                        }
+                    });
+            });
+
+            $(".btn-re").click(function() {
+                $("#sec-punch").show();
+                $("#sec-today").hide();
+            });
+        })
+    </script>
+}

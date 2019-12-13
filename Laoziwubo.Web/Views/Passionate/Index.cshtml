@@ -1,0 +1,837 @@
+﻿@model List<Laoziwubo.Model.Content.PassionateM>
+@{
+    ViewData["Title"] = "保持激情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f6f6f6;
+    }
+
+    input::-webkit-input-placeholder {
+        color: #ccc;
+    }
+
+    input::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #ccc;
+    }
+
+    input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #ccc;
+    }
+
+    input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #ccc;
+    }
+
+    input:focus {
+        border-color: #FFA500;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 165, 0, .6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 165, 0, .6);
+    }
+
+    .div-title {
+        font-size: 38px;
+        margin: 10vh auto;
+        width: 55vw;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        background-color: #fff;
+        padding: 1em 10vw;
+        box-shadow: 0 20px 20px rgba(26,26,26,.1);
+        color: #A1A7B2
+    }
+
+    .div-info {
+        position: relative;
+        font-size: 24px;
+        margin: 5vh auto;
+        width: 50vw;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        background-color: #fff;
+        padding: 2em 10vw;
+        box-shadow: 0 8px 8px rgba(26,26,26,.1);
+        color: #A1A7B2
+    }
+
+    .div-add {
+        display: none;
+    }
+
+    .div-btn-add {
+        border-radius: 50%;
+        cursor: pointer;
+        overflow: hidden;
+        position: fixed;
+        right: 5%;
+        bottom: 30%;
+    }
+
+        .div-btn-add:hover {
+            border-color: #FFA500;
+        }
+
+    .starability-slot > input {
+        position: absolute;
+        margin-right: -100%;
+        opacity: 0;
+    }
+
+    .starability-slot > label {
+        width: 30px;
+        height: 30px;
+        color: transparent;
+        background-image: url('/images/passionate/stars.png');
+        cursor: pointer;
+        background-repeat: no-repeat;
+        float: right;
+    }
+
+    .can-rate > input:focus ~ label, .can-rate > input:hover ~ label {
+        transition: background-position .7s;
+    }
+
+    .can-rate > input:focus ~ label, .can-rate > input:hover ~ label {
+        background-position: 0 -30px;
+    }
+
+    .rated ~ label {
+        background-position: 0 -30px;
+    }
+
+    .span-ele {
+        font-size: 24px;
+        height: 1.5em;
+        color: #A1A7B2;
+    }
+
+    .ipt-ele {
+        font-size: 24px;
+        height: 1.5em;
+        border: 1px solid #e6e6e6;
+        color: #A1A7B2;
+        padding-left: 10px;
+    }
+
+    .btn-edit, .btn-add {
+        display: inline-block;
+        font-size: 24px;
+        height: 1.5em;
+        line-height: 1.5em;
+        border: 1px solid #e6e6e6;
+        padding: 0 .8em;
+        vertical-align: top;
+        border-left: none;
+    }
+
+        .btn-edit img, .btn-add img {
+            width: 1.3em;
+        }
+
+        .btn-edit:hover, .btn-add:hover {
+            border-left: 1px solid;
+            border-color: #FFA500;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 165, 0, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 165, 0, .6);
+        }
+
+    .btn-edit-switch {
+        display: inline-block;
+        height: 1.5em;
+        line-height: 1.5em;
+    }
+
+        .btn-edit-switch:hover {
+            color: #FFA500;
+        }
+
+    .span-new {
+        font-size: 16px;
+        display: inline-block;
+        padding: 1px .5em;
+        cursor: pointer;
+        border: 1px solid;
+        height: 1.5em;
+        line-height: 1.5em;
+        border-radius: 4px;
+        align-self: center;
+    }
+
+        .span-new:hover {
+            color: #FFA500;
+        }
+
+    .grid {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -o-flex;
+        display: -ms-flex;
+        display: flex;
+        width: 100%;
+        line-height: 1.5em;
+        margin-bottom: .2em;
+    }
+
+        .grid a {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+    .grid-icon {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -o-flex;
+        display: -ms-flex;
+        display: flex;
+        align-items: center;
+        align-self: center;
+        margin-left: .3em;
+    }
+
+        .grid-icon img {
+            width: 1.3em;
+        }
+
+    .fluid {
+        font-size: 24px;
+        height: 1.5em;
+        border: 1px solid #e6e6e6;
+        color: #A1A7B2;
+        padding-left: 10px;
+    }
+
+    .fixed {
+        width: 1em;
+        height: 1em;
+        padding: .25em .5em;
+    }
+
+    .fixed-width {
+        width: 28vw;
+    }
+
+    .fluid-width {
+        flex: 1;
+    }
+
+    .fixed-width-days {
+        width: 4em;
+        text-align: center;
+        padding: 0;
+    }
+
+    .sp-close {
+        position: absolute;
+        right: 1.2em;
+        top: .5em;
+        width: 0.2em;
+        height: 1.2em;
+        background: #ccc;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        cursor: pointer;
+    }
+
+        .sp-close::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0.2em;
+            height: 1.2em;
+            background: #ccc;
+            -webkit-transform: rotate(270deg);
+            -moz-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+
+        .sp-close:hover, .sp-close:hover::after {
+            background: #ffa500;
+        }
+
+    .div-add-wrap {
+        display: none;
+        border: 1px solid transparent;
+        background: #f6f6f6;
+        padding: .5em .2em .1em;
+        border-radius: 2px;
+        margin-bottom: .5em;
+    }
+
+    .sp-superscript-complated {
+        position: absolute;
+        left: -2em;
+        top: -1em;
+        background-image: url("/images/passionate/superscript-complated.png");
+        width: 6em;
+        height: 6em;
+        background-size: 100%;
+        transform: rotate(353deg);
+    }
+
+    .span-finish {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition-duration: 2s;
+    }
+
+        .span-finish img {
+            width: 2.3em;
+            height: 1.3em;
+        }
+</style>
+
+<div class="div-title">
+    <p style="text-indent: 2em;">
+        以兴趣爱好为原动力，赶走每过一段时间产生的懈怠，对生活<span class="orange-ly">保持激情</span>。
+        谨以此，记录此后每个值得称道的时刻，挂载每个应该尽力达成的目标。
+    </p>
+    <p class="tr f24">
+        2018.5.21
+    </p>
+</div>
+<div class="div-btn-add">
+    <img style="width: 10vh;" src="~/images/passionate/add.png" />
+</div>
+<div class="div-add div-info">
+    <span class="sp-close"></span>
+    <div class="grid">
+        <img class="fixed" src="~/images/passionate/title.png" />
+        <input class="fluid fixed-width new-title" type="text" placeholder="给你的目标起个标题吧" />
+    </div>
+    <div class="grid">
+        <img class="fixed" src="~/images/passionate/days.png" />
+        <input class="fluid fixed-width-days new-days" type="text" />
+        <span class="ccc f14" style="align-items: center;display: inline-flex;">
+            <img style="width: 1.2em; margin: 0 .3em 0 2em;" src="~/images/common/notice.png" />
+            预期完成天数，将会在目标完结时用于对比，写0则为长期目标。
+        </span>
+    </div>
+    <div class="grid">
+        <img class="fixed" src="~/images/passionate/keywords.png" />
+        <span class="fluid-width">
+            <span class="grid fluid-width">
+                <input class="fluid fixed-width new-key" type="text" placeholder="关键点" />
+                <a class="grid-icon btn-new-key">
+                    <img src="~/images/passionate/add-one.png" />
+                </a>
+            </span>
+            <span class="span-anchor-new-key"></span>
+        </span>
+    </div>
+    <div class="grid">
+        <img class="fixed" src="~/images/passionate/links.png" />
+        <span class="fluid-width">
+            <span class="grid fluid-width">
+                <input class="fluid fixed-width new-url" type="text" placeholder="添加资料链接" />
+                <a class="grid-icon btn-new-url">
+                    <img src="~/images/passionate/add-one.png" />
+                </a>
+            </span>
+            <span class="span-anchor-new-url"></span>
+        </span>
+    </div>
+    <div class="grid" style="margin-top: 1em;">
+        <img class="fixed" src="~/images/passionate/message.png" />
+        <input class="fluid fluid-width new-message" type="text" placeholder="有啥想说的，记录一下呗~" />
+        <a class="btn-add">
+            <img src="~/images/passionate/confirm.png" />
+        </a>
+    </div>
+</div>
+
+@if (Model != null && Model.Count != 0)
+{
+    foreach (var m in Model)
+    {
+        <div data-id="@m.Id" class="div-info @(m.Status == 1 ? "cant-edit" : "")">
+            @if (m.Status == 2)
+            {
+                <span class="sp-superscript-complated"></span>
+            }
+            <span data-id="@m.Id" class="sp-close hide"></span>
+            <div class="grid">
+                <span class="grid fluid-width">
+                    <img class="fixed" src="~/images/passionate/title.png" />
+                    <span style="margin-right: 2em;">
+                        @m.Title
+                    </span>
+                    @foreach (var r in m.ResourcesList)
+                    {
+                        <a title="相关资料" target="_blank" href="@r">
+                            <img style="width: 1em; vertical-align: middle; margin: .1em;" src="~/images/passionate/links.png" />
+                        </a>
+                    }
+                </span>
+                <span class="f14 ccc">
+                    @m.AddTime.ToString("yyyy-MM-dd")添加
+                    @if (m.UpdateTime != m.AddTime)
+                    {
+                        <span style="padding: 0 .5em;">|</span>
+                        @(m.UpdateTime.ToString("yyyy-MM-dd") + "最后修改")
+                    }
+                </span>
+            </div>
+            <div class="grid">
+                <img class="fixed" src="~/images/passionate/days.png" />
+                @if (m.Status == 1)
+                {
+                    if (m.Days == 0)
+                    {
+                        <span class="fluid-width">
+
+                            <span class="orange-ly">长期目标</span>
+                            <span style="margin: 0 1em;">|</span>已进行<span class="orange-ly">@((DateTime.Now - m.AddTime).Days + 1)</span>天
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="fluid-width">
+                            预定<span class="orange-ly">@(m.Days)</span>天完成<span style="margin: 0 1em;">|</span>已进行<span class="orange-ly">@((DateTime.Now - m.AddTime).Days + 1)</span>天
+                        </span>
+                    }
+                }
+                else
+                {
+                    if (m.Days == 0)
+                    {
+                        <span class="fluid-width">
+                            <span class="orange-ly">长期目标</span>
+                            <span style="margin: 0 .5em;">|</span>于第<span class="orange-ly">@((m.UpdateTime - m.AddTime).Days + 1)</span>天完结
+                            <span style="margin: 0 .5em;">|</span>
+                            <span style="color: #66cd00;border-bottom: 2px solid;">目标完结</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="fluid-width">
+                            预定<span class="orange-ly">@(m.Days)</span>天完成
+                            <span style="margin: 0 .5em;">|</span>于第<span class="orange-ly">@((m.UpdateTime - m.AddTime).Days + 1)</span>天完结
+                            <span style="margin: 0 .5em;">|</span>
+                            @if ((m.UpdateTime - m.AddTime).Days > m.Days)
+                            {
+                                <span style="color: #ee1f26;border-bottom: 2px solid;">目标超期</span>
+                            }
+                            else
+                            {
+                                <span style="color: #66cd00;border-bottom: 2px solid;">目标达成</span>
+                            }
+                        </span>
+                    }
+                }
+                <span class="span-finish hide" data-stat="off">
+                    <img src="~/images/passionate/switch-off.png" />
+                </span>
+            </div>
+            <div class="grid">
+                <img class="fixed" src="~/images/passionate/keywords.png" />
+                <div class="fluid-width">
+                    @{
+                        var index = 0;
+                        foreach (var dict in m.CompletionDict)
+                        {
+                            <span class="grid">
+                                <span class="fluid-width">
+                                    <input class="key-more ipt-ele hide" type="text" value="@dict.Key" data-id="@m.Id" placeholder="添加知识点" />
+                                    <span class="span-ele">@dict.Key</span>
+                                </span>
+                                <span class="starability-slot">
+                                    <input type="radio" id="rate5-@m.Id-@index" value="5" class="@(dict.Value == 5 ? "rated" : "")">
+                                    <label for="rate5-@m.Id-@index" title="得心应手"></label>
+                                    <input type="radio" id="rate4-@m.Id-@index" value="4" class="@(dict.Value == 4 ? "rated" : "")">
+                                    <label for="rate4-@m.Id-@index" title="心领神会"></label>
+                                    <input type="radio" id="rate3-@m.Id-@index" value="3" class="@(dict.Value == 3 ? "rated" : "")">
+                                    <label for="rate3-@m.Id-@index" title="循序渐进"></label>
+                                    <input type="radio" id="rate2-@m.Id-@index" value="2" class="@(dict.Value == 2 ? "rated" : "")">
+                                    <label for="rate2-@m.Id-@index" title="略知一二"></label>
+                                    <input type="radio" id="rate1-@m.Id-@index" value="1" class="@(dict.Value == 1 ? "rated" : "")">
+                                    <label for="rate1-@m.Id-@index" title="不明就里"></label>
+                                </span>
+                            </span>
+                            index++;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="grid div-add-span hide" data-id="@m.Id" style="margin: .5em auto;">
+                <img class="fixed" src="~/images/passionate/add-tag.png" />
+                <span data-id="@m.Id" class="span-new">添加内容</span>
+            </div>
+            <div class="div-add-wrap" data-id="@m.Id">
+                <div class="grid">
+                    <img class="fixed" src="~/images/passionate/keywords-add.png" />
+                    <span class="fluid-width">
+                        <span class="grid">
+                            <span class="grid fluid-width">
+                                <input class="ipt-ele fixed-width key-more" type="text" data-id="@m.Id" placeholder="添加知识点" />
+                                <a class="grid-icon btn-one-key" data-id="@m.Id" data-index="@(index + 1)">
+                                    <img src="~/images/passionate/add-one.png" />
+                                </a>
+                            </span>
+                            <span class="starability-slot">
+                                <input type="radio" id="rate5-@m.Id-@index" value="5" class="">
+                                <label for="rate5-@m.Id-@index" title="得心应手"></label>
+                                <input type="radio" id="rate4-@m.Id-@index" value="4" class="">
+                                <label for="rate4-@m.Id-@index" title="心领神会"></label>
+                                <input type="radio" id="rate3-@m.Id-@index" value="3" class="">
+                                <label for="rate3-@m.Id-@index" title="循序渐进"></label>
+                                <input type="radio" id="rate2-@m.Id-@index" value="2" class="">
+                                <label for="rate2-@m.Id-@index" title="略知一二"></label>
+                                <input type="radio" id="rate1-@m.Id-@index" value="1" class="">
+                                <label for="rate1-@m.Id-@index" title="不明就里"></label>
+                            </span>
+                        </span>
+                        <span class="span-anchor-key" data-id="@m.Id"></span>
+                    </span>
+                </div>
+                <div class="grid">
+                    <img class="fixed" src="~/images/passionate/links.png" />
+                    <span class="fluid-width">
+                        <span class="grid fluid-width">
+                            <input class="ipt-ele fixed-width url-more" type="text" data-id="@m.Id" value="" placeholder="添加资料链接" />
+                            <a class="grid-icon btn-one-url" data-id="@m.Id">
+                                <img src="~/images/passionate/add-one.png" />
+                            </a>
+                        </span>
+                        <span class="span-anchor-url" data-id="@m.Id"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="grid">
+                <img class="fixed" src="~/images/passionate/message.png" />
+                <span class="grid fluid-width">
+                    <input class="fluid fluid-width ipt-ele ipt-message hide" data-id="@m.Id" type="text" value="@m.Message" />
+                    <span class="fluid-width span-ele">@m.Message</span>
+                    <a class="btn-edit hide" data-id="@m.Id">
+                        <img src="~/images/passionate/confirm.png" />
+                    </a>
+                    <a class="grid-icon btn-edit-switch @(m.Status == 2 ? "hide" : "")" data-id="@m.Id">
+                        <img src="~/images/passionate/edit.png" />
+                    </a>
+                </span>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#a-nav").hide();
+
+            layui.use('layer',function () {
+                var layer = layui.layer;
+            });
+
+            $(".span-finish").hover(function() {
+                layer.tips('在此处选择是否完结目标',
+                    this,
+                    {
+                        tips: [4, '#ffa500']
+                    });
+            },function() {
+                layer.closeAll('tips');
+            });
+
+            $(".span-finish").click(function () {
+                var stat = $(this).attr("data-stat");
+                var src = $(this).children("img").attr("src");
+                if (stat === "off") {
+                    src = src.replace("off.png", "on.png");
+                    $(this).attr("data-stat", "on");
+                } else {
+                    src = src.replace("on.png", "off.png");
+                    $(this).attr("data-stat", "off");
+                }
+                $(this).children("img").attr("src", src);
+                return false;
+            });
+
+            $(".btn-add").click(function () {
+                if ($(".new-title").val() == "") {
+                    $(".new-title").focus();
+                    layer.msg("目标不可为空~", { time: 2000, icon: 0 });
+                    return false;
+                }
+
+                var days = $(".new-days").val();
+                var patrn = /^[0-9]*$/;
+                if (patrn.exec(days) == null || days == "") {
+                    $(".new-days").focus();
+                    layer.msg("预期天数必须为整数~", { time: 2000, icon: 0 });
+                    return false;
+                }
+
+                var url = "@Url.Action("Edit")";
+                var who = "@ViewBag.Who";
+                var keywords = "";
+                var resources = "";
+                $(".new-key").each(function () {
+                    if ($(this).val() != "") {
+                        keywords += "," + $(this).val();
+                    }
+                });
+                if (!keywords) {
+                    layer.msg("至少写一个关键点吧，不然都不知道从何下手呢~", { time: 2000, icon: 0 });
+                    return false;
+                }
+
+                $(".new-url").each(function () {
+                    if ($(this).val() != "") {
+                        resources += "|" + $(this).val();
+                    }
+                });
+                $.post(url,
+                    {
+                        Title: $(".new-title").val(),
+                        Days: days,
+                        Keywords: keywords,
+                        Resources: resources,
+                        Message: $(".new-message").val(),
+                        Who: who,
+                        Status:1
+                    },
+                    function(data) {
+                        var r = JSON.parse(data);
+                        if (r.Flag) {
+                            layer.msg(r.Message,
+                                { time: 2000, icon: 1 },
+                                function() {
+                                    window.location.reload();
+                                });
+                        } else {
+                            layer.msg(r.Message, { time: 2000, icon: 0 });
+                        }
+                    });
+            });
+
+            $(".btn-edit").click(function () {
+                var id = $(this).attr("data-id");
+                var url = "@Url.Action("Edit")";
+                var keywords = "";
+                var completion = "";
+                var resources = "";
+                $(".key-more[data-id=" + id + "]").each(function() {
+                    if ($(this).val() != "") {
+                        keywords += "," + $(this).val();
+                        var rated = $(this).parents().siblings(".starability-slot").children(".rated").val();
+                        if (rated) {
+                            completion += "|" + rated;
+                        } else {
+                            completion += "|" + 0;
+                        }
+                    }
+                });
+                $(".url-more[data-id=" + id + "]").each(function () {
+                    if ($(this).val() != "") {
+                        resources += "|" + $(this).val();
+                    }
+                });
+
+                $.post(url,
+                    {
+                        Id:id,
+                        Keywords: keywords,
+                        Completion: completion,
+                        Resources: resources,
+                        Message: $(".ipt-message[data-id=" + id + "]").val(),
+                        Status: $(".cant-edit[data-id=" + id + "] .span-finish").attr("data-stat") === "on" ? 2 : 1
+                    },
+                    function (data) {
+                        var r = JSON.parse(data);
+                        if (r.Flag) {
+                            layer.msg(r.Message,
+                                { time: 2000, icon: 1 },
+                                function () {
+                                    window.location.reload();
+                                });
+                        } else {
+                            layer.msg(r.Message, { time: 2000, icon: 0 });
+                        }
+                    });
+            });
+
+            $(".btn-edit-switch").click(function () {
+                var id = $(this).attr("data-id");
+                $(".cant-edit[data-id=" + id + "] .span-ele").hide();
+                $(this).hide();
+                $(".div-add-span[data-id=" + id + "]").removeClass("hide");
+                $(".sp-close[data-id=" + id + "]").removeClass("hide");
+                $(".cant-edit[data-id=" + id + "] .btn-edit").removeClass("hide");
+                $(".cant-edit[data-id=" + id + "] .ipt-ele").removeClass("hide");
+                $(".cant-edit[data-id=" + id + "] .span-finish").removeClass("hide");
+                $(".cant-edit[data-id=" + id + "] .starability-slot").addClass("can-rate");
+                return false;
+            });
+
+            $(".sp-close").click(function () {
+                var id = $(this).attr("data-id");
+                if (id) {
+                    $(".div-add-wrap[data-id=" + id + "]").hide();
+                    $(".div-add-span[data-id=" + id + "]").addClass("hide");
+                    $(".cant-edit[data-id=" + id + "] .btn-edit").addClass("hide");
+                    $(".cant-edit[data-id=" + id + "] .ipt-ele").addClass("hide");
+                    $(".cant-edit[data-id=" + id + "] .span-finish").addClass("hide");
+                    $(this).addClass("hide");
+                    $(".cant-edit[data-id=" + id + "] .span-ele").show();
+                    $(".cant-edit[data-id=" + id + "] .btn-edit-switch").show();
+                    $(".cant-edit[data-id=" + id + "] .starability-slot").removeClass("can-rate");
+                    $(".cant-edit[data-id=" + id + "] .rated").removeClass("rated");
+                } else {
+                    $(".div-add").slideUp(1000);
+                }
+            });
+
+            $(".div-btn-add").click(function() {
+                $(".div-add").slideDown(500);
+            });
+
+            $("body").on("click",
+                ".can-rate > input",
+                function () {
+                    $(this).siblings().removeClass("rated");
+                    $(this).addClass("rated");
+                    return false;
+                });
+
+            $(".span-new").click(function() {
+                var id = $(this).attr("data-id");
+                $(this).parent().addClass("hide");
+                $(".div-add-wrap[data-id=" + id + "]").slideDown(800);
+            });
+
+            $(".btn-one-url").click(function () {
+                var id = $(this).attr("data-id");
+                var flag = false;
+                $(".url-more[data-id=" + id + "]").each(function() {
+                    if ($(this).val() === "") {
+                        layer.msg("请先把这行写完~",
+                            {
+                                time: 2000,
+                                icon: 0
+                            });
+                        flag = true;
+                        $(this).focus();
+                    }
+                });
+                if (flag) {
+                    return false;
+                }
+                var html = '<span class="grid"><span class="fluid-width"><input class="ipt-ele fixed-width url-more" type="text" data-id="' +
+                    id +
+                    '" value="" placeholder="添加资料链接"/></span></span>';
+                $(".span-anchor-url[data-id=" + id + "]").before(html);
+                return false;
+            });
+
+            $(".btn-one-key").click(function () {
+                var index = $(this).attr("data-index");
+                var id = $(this).attr("data-id");
+                var flag = false;
+                $(".key-more[data-id=" + id + "]").each(function () {
+                    if ($(this).val() === "") {
+                        layer.msg("请先把这行写完~",
+                            {
+                                time: 2000,
+                                icon: 0
+                            });
+                        flag = true;
+                        $(this).focus();
+                    }
+                });
+                if (flag) {
+                    return false;
+                }
+                var html =
+                    '<span class="grid"><span class="fluid-width"><input class="ipt-ele fixed-width key-more" type="text" data-id="' + id + '" placeholder="添加知识点" /></span><span class="starability-slot can-rate"><input type="radio" id="rate5-' +
+                        id +
+                        '-' +
+                        index +
+                        '" value="5" class=""><label for="rate5-' +
+                        id +
+                        '-' +
+                        index +
+                        '" title="得心应手"></label><input type="radio" id="rate4-' +
+                        id +
+                        '-' +
+                        index +
+                        '" value="4" class=""><label for="rate4-' +
+                        id +
+                        '-' +
+                        index +
+                        '" title="心领神会"></label><input type="radio" id="rate3-' +
+                        id +
+                        '-' +
+                        index +
+                        '" value="3" class=""><label for="rate3-' +
+                        id +
+                        '-' +
+                        index +
+                        '" title="循序渐进"></label><input type="radio" id="rate2-' +
+                        id +
+                        '-' +
+                        index +
+                        '" value="2" class=""><label for="rate2-' +
+                        id +
+                        '-' +
+                        index +
+                        '" title="略知一二"></label><input type="radio" id="rate1-' +
+                        id +
+                        '-' +
+                        index +
+                        '" value="1" class=""><label for="rate1-' +
+                        id +
+                        '-' +
+                        index +
+                        '" title="不明就里"></label></span></span>';
+                $(".span-anchor-key[data-id=" + id + "]").before(html);
+                $(this).attr("data-index", parseInt(index) + 1);
+                return false;
+            });
+
+            $(".btn-new-key").click(function () {
+                var flag = false;
+                $(".new-key").each(function () {
+                    if ($(this).val() === "") {
+                        layer.msg("请先把这行写完~", { time: 2000, icon: 0 });
+                        flag = true;
+                        $(this).focus();
+                    }
+                });
+                if (flag) {
+                    return false;
+                }
+                var html = '<span class="grid fluid-width"><input class="fluid fixed-width new-key" type="text" placeholder="关键点" /></span>';
+                $(".span-anchor-new-key").before(html);
+                return false;
+            });
+
+            $(".btn-new-url").click(function () {
+                var flag = false;
+                $(".new-url").each(function () {
+                    if ($(this).val() === "") {
+                        layer.msg("请先把这行写完~", { time: 2000, icon: 0 });
+                        flag = true;
+                        $(this).focus();
+                    }
+                });
+                if (flag) {
+                    return false;
+                }
+                var html = '<span class="grid fluid-width"><input class="fluid fixed-width new-url" type="text" placeholder="添加资料链接" /></span>';
+                $(".span-anchor-new-url").before(html);
+                return false;
+            });
+        })
+    </script>
+}

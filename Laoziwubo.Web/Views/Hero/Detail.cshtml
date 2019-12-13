@@ -1,0 +1,18 @@
+﻿@model Laoziwubo.Model.Content.HeroM
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="h80v w100p">
+    <div class="hc pr t20v w40v">
+        <img class="w6v" src="@Model.Icon" alt="@Model.Name" />
+        <div class="dib h5v f22">
+            <span>@Model.Name</span>
+            <span>-</span>
+            <span style="color: orange">@Model.PrimaryAttributes</span>
+        </div>
+        <div class="f17 dib w100p mt2v">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+</div>

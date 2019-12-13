@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Laoziwubo.Model.Content.HeroM>
+@{
+    ViewData["Title"] = "Hero";
+}
+@section Styles {
+    <style>
+        .img-icon {
+            width: 5.9vw;
+            transition: all 0.2s;
+        }
+
+            .img-icon:hover {
+                -webkit-transform: scale(2);
+                backface-visibility: hidden;
+            }
+    </style>
+}
+<div class="h80v w100p">
+    <div class="hc pr t15v w90v">
+        @foreach (var m in Model)
+        {
+            <a class="db fl" asp-action="Detail" asp-route-id="@m.Id">
+                <div class="db">
+                    <img class="img-icon db mr1 mb1" src="@m.Icon" alt="@m.Name" />
+                </div>
+            </a>
+        }
+    </div>
+</div>

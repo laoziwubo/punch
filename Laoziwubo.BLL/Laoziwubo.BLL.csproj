@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.5.2-beta6" />
+    <PackageReference Include="HttpCode.Core" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Laoziwubo.IBLL\Laoziwubo.IBLL.csproj" />
+    <ProjectReference Include="..\Laoziwubo.IDAL\Laoziwubo.IDAL.csproj" />
+    <ProjectReference Include="..\Laoziwubo.Model\Laoziwubo.Model.csproj" />
+  </ItemGroup>
+
+</Project>

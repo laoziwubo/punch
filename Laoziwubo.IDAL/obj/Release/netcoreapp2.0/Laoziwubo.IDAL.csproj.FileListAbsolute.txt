@@ -1,0 +1,12 @@
+E:\Core\Laoziwubo\Laoziwubo.IDAL\bin\Release\netcoreapp2.0\Laoziwubo.IDAL.deps.json
+E:\Core\Laoziwubo\Laoziwubo.IDAL\bin\Release\netcoreapp2.0\Laoziwubo.IDAL.dll
+E:\Core\Laoziwubo\Laoziwubo.IDAL\bin\Release\netcoreapp2.0\Laoziwubo.IDAL.pdb
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.csproj.CoreCompileInputs.cache
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.AssemblyInfoInputs.cache
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.AssemblyInfo.cs
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.dll
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.pdb
+E:\Core\Laoziwubo\Laoziwubo.IDAL\bin\Release\netcoreapp2.0\Laoziwubo.Model.dll
+E:\Core\Laoziwubo\Laoziwubo.IDAL\bin\Release\netcoreapp2.0\Laoziwubo.Model.pdb
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.csprojAssemblyReference.cache
+E:\Core\Laoziwubo\Laoziwubo.IDAL\obj\Release\netcoreapp2.0\Laoziwubo.IDAL.csproj.CopyComplete
